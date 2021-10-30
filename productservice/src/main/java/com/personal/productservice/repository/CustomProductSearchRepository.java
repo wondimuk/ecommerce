@@ -3,7 +3,6 @@ package com.personal.productservice.repository;
 import com.personal.productservice.model.Product;
 import com.personal.productservice.model.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -19,7 +18,7 @@ public class CustomProductSearchRepository implements ProductSearchRepository{
 
     @Override
     public List<Product> products(SearchCriteria searchCriteria) {
-        final Query query = new Query().with(searchCriteria.getRequest());
+         Query query = new Query(); //.with(searchCriteria.getRequest())
 
         final List<Criteria> criteria = new ArrayList();
         if(searchCriteria.getProductName()!=null && !searchCriteria.getProductName().isEmpty())
