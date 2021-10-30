@@ -4,10 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CatalogserviceApplication {
-
+public class ProductserviceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(CatalogserviceApplication.class, args);
+        SpringApplication.run(ProductserviceApplication.class, args);
     }
 
 }
