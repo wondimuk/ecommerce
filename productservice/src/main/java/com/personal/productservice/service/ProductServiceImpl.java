@@ -11,6 +11,8 @@ import com.personal.productservice.repository.ProductRepository;
 import com.personal.productservice.utils.DTO.ProductDTO;
 import com.personal.productservice.utils.DTO.ProductMapper;
 import com.personal.productservice.utils.DTO.exception.NoDataFoundError;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +20,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +39,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    private final static Logger log = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     @Autowired
     public void setProductRepository(ProductRepository productRepository) {

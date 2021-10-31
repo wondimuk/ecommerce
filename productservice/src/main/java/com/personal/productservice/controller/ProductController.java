@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
 
     @Autowired
-    private ProductService productService;
-//    ProductServiceImpl productService;
 //    @Qualifier("productServiceImpl")
-//    private ProductService productService;
+    private ProductService productService;
     @GetMapping
     public ResponseEntity<Page<ProductDTO>> findAllProducts(Pageable page) throws Exception {
         Page<ProductDTO> product = productService.findAllProducts(page);
