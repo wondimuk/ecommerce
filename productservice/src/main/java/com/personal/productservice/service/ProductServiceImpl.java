@@ -61,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
         updateProduct.setProductCode(product.getProductCode());
         updateProduct.setProductName(product.getProductName());
         updateProduct.setProductCategory(product.getProductCategory());
-        updateProduct.setDate(product.getDate());
+        updateProduct.setDate(product.getProductDate());
         productRepository.save(updateProduct);
         return productMapper.dtoProductMapper(updateProduct);
     }
@@ -81,7 +81,7 @@ public class ProductServiceImpl implements ProductService {
                 product.getProductCode(),
                 product.getProductName(),
                 product.getProductCategory(),
-                product.getDate()
+                product.getProductDate()
         )).collect(Collectors.toList()), page, p.getTotalPages());
     }
 

@@ -1,6 +1,6 @@
 package com.personal.productservice.model;
 import lombok.Builder;
-import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -8,19 +8,19 @@ import java.time.LocalDate;
 @Document(collection = "product")
 @Builder
 public class Product {
-    @Id
+    @Indexed(unique=true)
     private String productCode;
     private String productName;
     private ProductCategory productCategory;
-    private LocalDate date;
+    private LocalDate productDate;
 
     public Product() {}
 
-    public Product(String productCode, String productName, ProductCategory productCategory, LocalDate date) {
+    public Product(String productCode, String productName, ProductCategory productCategory, LocalDate productDate) {
         this.productCode = productCode;
         this.productName = productName;
         this.productCategory = productCategory;
-        this.date = date;
+        this.productDate=productDate;
     }
 
     public String getProductCode() {
@@ -47,12 +47,12 @@ public class Product {
         this.productCategory = productCategory;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getProductDate() {
+        return productDate;
     }
 
     public void setDate(LocalDate date) {
-        this.date = date;
+        this.productDate = date;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class Product {
                 "productCode='" + productCode + '\'' +
                 ", productName='" + productName + '\'' +
                 ", productCategory=" + productCategory +
-                ", date=" + date +
+                ", date=" + getProductDate() +
                 '}';
     }
 }

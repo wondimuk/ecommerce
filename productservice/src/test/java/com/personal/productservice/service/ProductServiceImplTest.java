@@ -38,25 +38,25 @@ public class ProductServiceImplTest {
                 .productCode("pr001")
                 .productName("Computer")
                 .productCategory(ProductCategory.ELECTRONICS)
-                .date(LocalDate.now()).build();
+                .productDate(LocalDate.now()).build();
 
         p1 = Product.builder()
                 .productCode("pr001")
                 .productName("Computer")
                 .productCategory(ProductCategory.ELECTRONICS)
-                .date(LocalDate.now()).build();
+                .productDate(LocalDate.now()).build();
 
         product2=ProductDTO.builder()
                 .productCode("pr002")
                 .productName("Pizza")
                 .productCategory(ProductCategory.FOOD)
-                .date(LocalDate.now()).build();
+                .productDate(LocalDate.now()).build();
 
         p2=Product.builder()
                 .productCode("pr002")
                 .productName("Pizza")
                 .productCategory(ProductCategory.FOOD)
-                .date(LocalDate.now()).build();
+                .productDate(LocalDate.now()).build();
     }
 
     @Test

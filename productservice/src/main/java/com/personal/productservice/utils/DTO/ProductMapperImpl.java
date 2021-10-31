@@ -9,7 +9,7 @@ public class ProductMapperImpl implements ProductMapper{
     public Product productMapper(ProductDTO productDTO) {
         return Product.builder().productCode(productDTO.getProductCode())
                 .productName(productDTO.getProductName())
-                .date(productDTO.getDate())
+                .productDate(productDTO.getProductDate())
                 .productCategory(productDTO.getProductCategory()).build();
     }
 
@@ -19,7 +19,7 @@ public class ProductMapperImpl implements ProductMapper{
                 .productCode(product.getProductCode())
                 .productName(product.getProductName())
                 .productCategory(product.getProductCategory())
-                .date(product.getDate())
+                .productDate(product.getProductDate())
                 .build();
     }
 }

@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,7 +44,6 @@ public class ProductControllerTest {
     @MockBean
     private ProductService productService;
 
-
     private ProductDTO product1, product2, product3;
 
     private SearchCriteria searchCriteria;
@@ -58,12 +58,12 @@ public class ProductControllerTest {
                 .productCode("pr001")
                 .productName("Computer")
                 .productCategory(ProductCategory.ELECTRONICS)
-                .date(LocalDate.now()).build();
+                .productDate(LocalDate.now()).build();
         product2=ProductDTO.builder()
                 .productCode("pr002")
                 .productName("Pizza")
                 .productCategory(ProductCategory.FOOD)
-                .date(LocalDate.now()).build();
+                .productDate(LocalDate.now()).build();
         searchCriteria= SearchCriteria.builder().productName(product1.getProductName())
                 .category(product1.getProductCategory()).build();
 
