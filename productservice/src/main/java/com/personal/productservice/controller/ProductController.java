@@ -6,7 +6,6 @@ import com.github.fge.jsonpatch.JsonPatchException;
 import org.springframework.beans.factory.annotation.Qualifier;*/
 
 import com.personal.productservice.service.ProductService;
-import com.personal.productservice.service.ProductServiceImpl;
 import com.personal.productservice.utils.DTO.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,9 +30,9 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO product){
-        ProductDTO product1 = productService.addProduct(product);
-        return new ResponseEntity(product1, HttpStatus.ACCEPTED);
+    public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO product) throws Exception {
+        ProductDTO prod = productService.addProduct(product);
+        return new ResponseEntity(prod, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/{productCode}")

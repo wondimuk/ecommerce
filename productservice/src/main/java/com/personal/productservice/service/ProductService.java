@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ProductService {
-    ProductDTO addProduct(ProductDTO product1) ;
+    ProductDTO addProduct(ProductDTO product1) throws Exception;
     ProductDTO findOneProduct(String productCode) throws Exception;
     ProductDTO updateProduct(ProductDTO product1) throws Exception;
     List<ProductDTO> searchProduct(SearchCriteria searchCriteria);

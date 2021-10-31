@@ -1,14 +1,18 @@
 package com.personal.productservice.model;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 
 @Document(collection = "product")
 @Builder
+@AllArgsConstructor
 public class Product {
-    @Indexed(unique=true)
+    @Id
+    private String id;
     private String productCode;
     private String productName;
     private ProductCategory productCategory;
@@ -21,6 +25,14 @@ public class Product {
         this.productName = productName;
         this.productCategory = productCategory;
         this.productDate=productDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getProductCode() {
@@ -51,7 +63,7 @@ public class Product {
         return productDate;
     }
 
-    public void setDate(LocalDate date) {
+    public void setProductDate(LocalDate date) {
         this.productDate = date;
     }
 

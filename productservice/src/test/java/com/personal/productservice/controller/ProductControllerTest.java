@@ -8,6 +8,7 @@ import com.personal.productservice.model.ProductCategory;
 import com.personal.productservice.model.SearchCriteria;
 import com.personal.productservice.service.ProductService;
 import com.personal.productservice.utils.DTO.ProductDTO;
+import com.personal.productservice.utils.DTO.ProductMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -48,18 +50,16 @@ public class ProductControllerTest {
 
     private SearchCriteria searchCriteria;
 
-/*
-    private JsonPatch patch;
-*/
-
     @BeforeEach
     void setup() throws JsonProcessingException {
         product1=ProductDTO.builder()
+                .id("pp01")
                 .productCode("pr001")
                 .productName("Computer")
                 .productCategory(ProductCategory.ELECTRONICS)
                 .productDate(LocalDate.now()).build();
         product2=ProductDTO.builder()
+                .id("pp02")
                 .productCode("pr002")
                 .productName("Pizza")
                 .productCategory(ProductCategory.FOOD)
@@ -67,33 +67,33 @@ public class ProductControllerTest {
         searchCriteria= SearchCriteria.builder().productName(product1.getProductName())
                 .category(product1.getProductCategory()).build();
 
-//        Patch update request
-        product3=new ProductDTO();
-        product3.setProductName(product1.getProductName());
-        product3.setProductCode(product1.getProductCode());
-//        patch.apply(objectMapper.writeValueAsString(product3));
+////        Patch update request
+//        product3=new ProductDTO();
+//        product3.setProductName(product1.getProductName());
+//        product3.setProductCode(product1.getProductCode());
+////        patch.apply(objectMapper.writeValueAsString(product3));
     }
 
     @Test
     public void addItemShouldReturnAddedObject() throws Exception {
-        when(productService.addProduct(product1)).thenReturn(product1);
+        when(productService.addProduct(product2)).thenReturn(product2);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/v1/products")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(product1));
+                .content(objectMapper.writeValueAsString(product2));
 
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andExpect(status().isAccepted())
                 .andReturn();
 
         String expected = mvcResult.getResponse().getContentAsString();
-        String actual = objectMapper.writeValueAsString(product1);
+        String actual = objectMapper.writeValueAsString(product2);
 
         assertEquals(expected,actual,"Oops!, error during assertion");
 
 //        objectMapper can read expected string to Product object
         Product p = objectMapper.readValue(expected,Product.class);
-        assertEquals(p.getProductCategory(),product1.getProductCategory());
+        assertEquals(p.getProductCategory(),product2.getProductCategory());
     }
 
 //    Test for exception

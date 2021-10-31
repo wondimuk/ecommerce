@@ -12,7 +12,6 @@ import com.personal.productservice.utils.DTO.ProductDTO;
 import com.personal.productservice.utils.DTO.ProductMapper;
 import com.personal.productservice.utils.DTO.exception.NoDataFoundError;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,28 +42,35 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO addProduct(ProductDTO product1) {
-        Product p = productRepository.save(productMapper.productMapper(product1));
-        ProductDTO pp = productMapper.dtoProductMapper(p);
-        return pp;
+    public ProductDTO addProduct(ProductDTO product1) throws Exception {
+        Product p = productMapper.productMapper(product1);
+        Optional<Product> getProduct =productRepository.findByProductCode(product1.getProductCode());
+        if(getProduct.isPresent()){
+            return updateProduct(product1);
+        }else{
+            return productMapper.dtoProductMapper(productRepository.save(p));
+        }
     }
 
     @Override
     public ProductDTO findOneProduct(String productCode) throws Exception {
-        Product product = productRepository.findByProductCode(productCode).get(); //.orElseThrow(NoDataFoundError::new);
+        Product product = productRepository.findByProductCode(productCode).orElseThrow(NoDataFoundError::new); //.orElseThrow(NoDataFoundError::new);
         return productMapper.dtoProductMapper(product);
     }
 
     @Override
-    public ProductDTO updateProduct(ProductDTO product1) {
-        Product product = productRepository.findById(product1.getProductCode()).orElseThrow(NoDataFoundError::new);
-        Product updateProduct = new Product();
-        updateProduct.setProductCode(product.getProductCode());
-        updateProduct.setProductName(product.getProductName());
-        updateProduct.setProductCategory(product.getProductCategory());
-        updateProduct.setDate(product.getProductDate());
-        productRepository.save(updateProduct);
-        return productMapper.dtoProductMapper(updateProduct);
+    public ProductDTO updateProduct(ProductDTO product1) throws Exception {
+        Product product = productRepository.findByProductCode(product1.getProductCode()).orElseThrow(NoDataFoundError::new);
+                //productRepository.findByProductCode(product1.getProductCode()).orElseThrow(NoDataFoundError::new);
+        productRepository.delete(product);
+        product.setId(product1.getId());
+        product.setProductCode(product1.getProductCode());
+        product.setProductName(product1.getProductName());
+        product.setProductCategory(product1.getProductCategory());
+        product.setProductDate(product1.getProductDate());
+
+        productRepository.save(product);
+        return productMapper.dtoProductMapper(product);
     }
 
     @Override
@@ -78,6 +85,7 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductDTO> findAllProducts(Pageable page) {
         Page<Product> p = productRepository.findAll(page);
         return new PageImpl<ProductDTO>(p.getContent().stream().map(product -> new ProductDTO(
+                product.getId(),
                 product.getProductCode(),
                 product.getProductName(),
                 product.getProductCategory(),

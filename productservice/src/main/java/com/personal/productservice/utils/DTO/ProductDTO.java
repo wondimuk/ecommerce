@@ -11,7 +11,9 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class ProductDTO {
+    private String id;
     private String productCode;
     private String productName;
     private ProductCategory productCategory;

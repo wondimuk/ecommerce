@@ -60,7 +60,7 @@ public class ProductServiceImplTest {
     }
 
     @Test
-    void shouldReturnProductWhenNewProductAdded(){
+    void shouldReturnProductWhenNewProductAdded() throws Exception {
         when(productRepository.save(p1)).thenReturn(p1);
         when(productMapper.productMapper(product1)).thenReturn(p1);
         when(productMapper.dtoProductMapper(p1)).thenReturn(product1);
