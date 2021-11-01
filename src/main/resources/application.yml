@@ -1,0 +1,11 @@
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb://user:pass@localhost:27017/orderdb
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/orderdb
+logging:
+  file:
+    name: .\logs\logs.log
